@@ -2,7 +2,7 @@ from pykd import *
 import re
 
 """
-A simple windbg plugin that uses pykd to patche the peb->BeingDebugged.
+A simple windbg plugin that uses pykd to patch the peb->BeingDebugged.
 """
 
 peb = getProcessOffset()
