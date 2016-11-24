@@ -19,6 +19,7 @@ Benefits:
 =========
 
 - No touching disk...
+- Can be loaded from remote...
 
 Example Usage:
 ==============
