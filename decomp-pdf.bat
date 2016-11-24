@@ -1,7 +1,7 @@
 @echo off
 
 rem 	
-rem This tool uncompressed compressed pdf files
+rem This tool uncompresses compressed pdf files
 rem to target raw objects inside pdf files.
 rem 1. created a minset first
 rem 2. run this foo over it
