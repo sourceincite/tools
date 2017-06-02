@@ -1,0 +1,4 @@
+    Pymsrpc has two dependencies to run properly.  The first is the Impacket library from Core Security.  The final is the Plex lexing packet from Greg Ewing.  Both can be downloaded and installed from the below links.
+    
+    * http://oss.coresecurity.com/projects/impacket.html
+    * http://www.cosc.canterbury.ac.nz/greg.ewing/python/Plex/
