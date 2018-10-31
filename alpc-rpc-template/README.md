@@ -11,7 +11,7 @@ This is a template solution you can use for building ALPC/RPC clients on windows
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Here is a step by step list to get a development env up and running
 
 * Install Visual Studio 2017 (v141)
 * Install Windows SDK 10.0.17134.0
