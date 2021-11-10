@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#!/usr/local/bin/python
+#!/usr/local/bin/python3
 """
 gwt.py
 
@@ -38,7 +38,7 @@ import re
 import sys
 import random
 import requests
-from urlparse import urljoin
+from urllib.parse import urljoin
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -89,23 +89,23 @@ class bcolors:
 
     @staticmethod
     def print_banner(string):
-        print bcolors.HEADER + string + bcolors.ENDC
+        print(bcolors.HEADER + string + bcolors.ENDC)
 
     @staticmethod
     def print_warning(string):
-        print bcolors.WARNING + string + bcolors.ENDC
+        print(bcolors.WARNING + string + bcolors.ENDC)
 
     @staticmethod
     def print_good(string):
-        print bcolors.OKBLUE + string + bcolors.ENDC
+        print(bcolors.OKBLUE + string + bcolors.ENDC)
 
     @staticmethod
     def print_decent(string):
-        print bcolors.OKGREEN + string + bcolors.ENDC
+        print (bcolors.OKGREEN + string + bcolors.ENDC)
 
     @staticmethod
     def print_fail(string):
-        print bcolors.FAIL + string + bcolors.ENDC
+        print (bcolors.FAIL + string + bcolors.ENDC)
 
 def parse_JavaScript(js):
     global functions
@@ -305,9 +305,11 @@ def build_gwt(e, url, strong_name, type_data):
                 gwt.append("%l")   # fuzz value
     return gwt
 
-def main():
+def main(proxy=None):
     global functions
-    r = requests.get(t, verify=False)
+    if proxy:
+        proxies = {'http': proxy, 'https': proxy}
+    r = requests.get(t, verify=False, proxies=proxies)
     if r.status_code == 200:
         html_cache = re.findall( "([A-Z0-9]{30,35})", r.text )
     else:
@@ -323,7 +325,7 @@ def main():
 
     r = requests.get(urljoin(t, "%s.cache.html" % file), cookies=c, verify=False)
     if r.status_code == 200:
-        print "(+) parsing %s.cache.html...\r\n" % file
+        print("(+) parsing %s.cache.html...\r\n" % file)
         soup = BeautifulSoup(r.text, "html.parser")
         for tag in soup.findAll("script"):
             raw_js = str(tag.next).replace("<!--", "").replace("-->","")
@@ -368,7 +370,7 @@ if __name__ == '__main__':
 
     (options, args) = parser.parse_args()
 
-    print banner()
+    print(banner())
 
     if len(sys.argv) < 3:
         parser.print_help()
@@ -376,9 +378,9 @@ if __name__ == '__main__':
 
     if options.cookies:
         if ":" not in options.cookies:
-            print "(-) cookies defined as <name>:<value>,<name><value>"
+            print("(-) cookies defined as <name>:<value>,<name><value>")
             parser.print_help()
             sys.exit(1)
 
     t = options.target
-    main()
+    main(proxy=options.proxy)
