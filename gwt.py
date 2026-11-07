@@ -309,7 +309,7 @@ def main(proxy=None):
     global functions
     if proxy:
         proxies = {'http': proxy, 'https': proxy}
-    r = requests.get(t, verify=False, proxies=proxies)
+    r = requests.get(t, verify=False, proxies=proxies, timeout=30)
     if r.status_code == 200:
         html_cache = re.findall( "([A-Z0-9]{30,35})", r.text )
     else:
@@ -323,7 +323,7 @@ def main(proxy=None):
         for cookie in cookies:
             c[cookie.split(":")[0]] = cookie.split(":")[1]
 
-    r = requests.get(urljoin(t, "%s.cache.html" % file), cookies=c, verify=False)
+    r = requests.get(urljoin(t, "%s.cache.html" % file), cookies=c, verify=False, timeout=30)
     if r.status_code == 200:
         print("(+) parsing %s.cache.html...\r\n" % file)
         soup = BeautifulSoup(r.text, "html.parser")
